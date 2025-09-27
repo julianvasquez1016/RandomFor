@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 from schemas.plantas_schemas import PlanData
 
-with open('RFPlantas.pkl','rb') as file:
+with open('SVMPlantas.pkl','rb') as file:
     model = pickle.load(file)
 
 labels = ['Arroz','Maize','Garbanzo','Frijoles','Guandul','Frijoles de Polilla',
