@@ -3,107 +3,138 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Predicción Diabetes</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Predicción de Cultivo</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 450px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 1em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #ff9800;
+      color: #fff;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #e68900;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      font-size: 1.1em;
+      text-align: center;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-  <div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-2xl">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Formulario de Paciente</h1>
-    <form id="patientForm" class="space-y-4">
-      <!-- Datos personales -->
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-gray-700">Nombre</label>
-          <input type="text" name="first_name" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div>
-          <label class="block text-gray-700">Apellido</label>
-          <input type="text" name="last_name" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div class="col-span-2">
-          <label class="block text-gray-700">Número de identificación</label>
-          <input type="text" name="identification_number" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-      </div>
+<body>
+  <div class="container">
+    <h1>Predicción de Cultivo 🌱</h1>
+    <form id="plantForm">
+      <label for="N">N (Nitrógeno)</label>
+      <input type="number" id="N" name="N" required />
 
-      <!-- Datos médicos -->
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-gray-700">Embarazos</label>
-          <input type="number" name="pregnancies" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div>
-          <label class="block text-gray-700">Glucosa</label>
-          <input type="number" name="glucose" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div>
-          <label class="block text-gray-700">Presión sanguínea</label>
-          <input type="number" name="bloodpressure" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div>
-          <label class="block text-gray-700">Espesor de piel</label>
-          <input type="number" name="skinthickness" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div>
-          <label class="block text-gray-700">Insulina</label>
-          <input type="number" name="insulin" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div>
-          <label class="block text-gray-700">Índice de Masa Corporal (BMI)</label>
-          <input type="number" step="0.1" name="bmi" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div>
-          <label class="block text-gray-700">Función de Pedigrí de Diabetes</label>
-          <input type="number" step="0.001" name="diabetespedigreefunction" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-        <div>
-          <label class="block text-gray-700">Edad</label>
-          <input type="number" name="age" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
-        </div>
-      </div>
+      <label for="P">P (Fósforo)</label>
+      <input type="number" id="P" name="P" required />
 
-      <!-- Botón -->
-      <div class="text-center">
-        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 shadow-md transition">Predicción</button>
-      </div>
+      <label for="K">K (Potasio)</label>
+      <input type="number" id="K" name="K" required />
+
+      <label for="temperature">Temperatura (°C)</label>
+      <input type="number" step="0.01" id="temperature" name="temperature" required />
+
+      <label for="humidity">Humedad (%)</label>
+      <input type="number" step="0.01" id="humidity" name="humidity" required />
+
+      <label for="ph">pH</label>
+      <input type="number" step="0.01" id="ph" name="ph" required />
+
+      <label for="rainfall">Lluvia (mm)</label>
+      <input type="number" step="0.01" id="rainfall" name="rainfall" required />
+
+      <button type="submit">Predicción</button>
     </form>
-
-    <!-- Respuesta -->
-    <div id="response" class="mt-6 p-4 rounded-xl bg-gray-50 border text-gray-800 hidden"></div>
+    <div id="resultado"></div>
   </div>
 
   <script>
-    document.getElementById("patientForm").addEventListener("submit", async function (e) {
+    document.getElementById("plantForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
-
-      // Convertir a tipos correctos
-      data.pregnancies = parseInt(data.pregnancies);
-      data.glucose = parseInt(data.glucose);
-      data.bloodpressure = parseInt(data.bloodpressure);
-      data.skinthickness = parseInt(data.skinthickness);
-      data.insulin = parseInt(data.insulin);
-      data.bmi = parseFloat(data.bmi);
-      data.diabetespedigreefunction = parseFloat(data.diabetespedigreefunction);
-      data.age = parseInt(data.age);
+      const data = {
+        N: parseInt(document.getElementById("N").value),
+        P: parseInt(document.getElementById("P").value),
+        K: parseInt(document.getElementById("K").value),
+        temperature: parseFloat(document.getElementById("temperature").value),
+        humidity: parseFloat(document.getElementById("humidity").value),
+        ph: parseFloat(document.getElementById("ph").value),
+        rainfall: parseFloat(document.getElementById("rainfall").value),
+      };
 
       try {
-        const res = await fetch("https://cliente1-112h.onrender.com/", {
+        const response = await fetch("http://localhost:8000/predict", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
 
-        const result = await res.json();
-        const responseDiv = document.getElementById("response");
-        responseDiv.innerHTML = "<strong>Respuesta del modelo:</strong><br><pre>" + JSON.stringify(result, null, 2) + "</pre>";
-        responseDiv.classList.remove("hidden");
+        if (!response.ok) {
+          throw new Error("Error en la respuesta del servidor");
+        }
+
+        const result = await response.json();
+        document.getElementById("resultado").innerText =
+          "🌾 Cultivo recomendado: " + result.prediction;
       } catch (error) {
-        alert("Error al conectarse con el servidor: " + error);
+        document.getElementById("resultado").innerText =
+          "❌ Error al conectarse con el servidor: " + error;
       }
     });
   </script>
