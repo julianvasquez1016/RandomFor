@@ -19,7 +19,7 @@ app.add_middleware(
     allow_methods=["*"],             # permite todos los métodos: GET, POST, PUT, DELETE
     allow_headers=["*"],             # permite todas las cabeceras
 )
-
+    
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
