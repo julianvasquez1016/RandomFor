@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predicción Diabetes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-2xl">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Formulario de Paciente</h1>
+    <form id="patientForm" class="space-y-4">
+      <!-- Datos personales -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-gray-700">Nombre</label>
+          <input type="text" name="first_name" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="block text-gray-700">Apellido</label>
+          <input type="text" name="last_name" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div class="col-span-2">
+          <label class="block text-gray-700">Número de identificación</label>
+          <input type="text" name="identification_number" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+      </div>
+
+      <!-- Datos médicos -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-gray-700">Embarazos</label>
+          <input type="number" name="pregnancies" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="block text-gray-700">Glucosa</label>
+          <input type="number" name="glucose" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="block text-gray-700">Presión sanguínea</label>
+          <input type="number" name="bloodpressure" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="block text-gray-700">Espesor de piel</label>
+          <input type="number" name="skinthickness" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="block text-gray-700">Insulina</label>
+          <input type="number" name="insulin" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="block text-gray-700">Índice de Masa Corporal (BMI)</label>
+          <input type="number" step="0.1" name="bmi" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="block text-gray-700">Función de Pedigrí de Diabetes</label>
+          <input type="number" step="0.001" name="diabetespedigreefunction" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="block text-gray-700">Edad</label>
+          <input type="number" name="age" required class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" />
+        </div>
+      </div>
+
+      <!-- Botón -->
+      <div class="text-center">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 shadow-md transition">Predicción</button>
+      </div>
+    </form>
+
+    <!-- Respuesta -->
+    <div id="response" class="mt-6 p-4 rounded-xl bg-gray-50 border text-gray-800 hidden"></div>
+  </div>
+
+  <script>
+    document.getElementById("patientForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      // Convertir a tipos correctos
+      data.pregnancies = parseInt(data.pregnancies);
+      data.glucose = parseInt(data.glucose);
+      data.bloodpressure = parseInt(data.bloodpressure);
+      data.skinthickness = parseInt(data.skinthickness);
+      data.insulin = parseInt(data.insulin);
+      data.bmi = parseFloat(data.bmi);
+      data.diabetespedigreefunction = parseFloat(data.diabetespedigreefunction);
+      data.age = parseInt(data.age);
+
+      try {
+        const res = await fetch("https://cliente1-112h.onrender.com/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+        const responseDiv = document.getElementById("response");
+        responseDiv.innerHTML = "<strong>Respuesta del modelo:</strong><br><pre>" + JSON.stringify(result, null, 2) + "</pre>";
+        responseDiv.classList.remove("hidden");
+      } catch (error) {
+        alert("Error al conectarse con el servidor: " + error);
+      }
+    });
+  </script>
+</body>
+</html>
